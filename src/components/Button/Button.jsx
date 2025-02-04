@@ -1,10 +1,12 @@
-import './Button.css'
-export default function Button({ children, onClick, isActive}) {
+import  classes from './Button.module.css'
+export default function Button({ children, isActive, ... props }) {
     // document.querySelector('button')   НЕ НУЖНО
     // console.log('Button Component Render')
 
     return (
-        <button className={isActive ? 'button active' : 'button'} onClick={onClick}>{children}</button>
+        <button 
+        {... props}
+        className={isActive ? `${classes.button} ${classes.active}` : classes.button}>{children}</button>
     )
 }
 
