@@ -5,6 +5,7 @@ import IntroSection from "./components/IntroSection.jsx"
 import TabsSection from "./components/TabsSection.jsx"
 import FeedBackSection from "./components/FeedBackSection.jsx"
 import { useState } from "react"
+import EffectSection from "./components/EffectSection.jsx"
 // Компонента App
 // Создать функцию, вернуть шаблон
 export default function App() {
@@ -13,11 +14,14 @@ export default function App() {
   // 1. Не писать ее вне компонентов (Использовать внутри компонента)
   // 2. Находиться на верхнем уровне
 
-  const [tab, setTab] = useState('feedback')
+  const [visible, setVisible] = useState(true)
+  const [tab, setTab] = useState('effect')
 
+
+  setTimeout(() => setVisible(false), 3000)
   return (
     <>
-      <Header/>
+      {visible && <Header/>}
       <main>
         <IntroSection/>
 
@@ -32,6 +36,8 @@ export default function App() {
 
         {tab === 'feedback' && (<FeedBackSection/>)}
        
+
+        {tab === 'effect' && (<EffectSection/>)}
 
         {/* <FeedBackSection/> */}
       </main>

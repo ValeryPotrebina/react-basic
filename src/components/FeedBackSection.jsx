@@ -1,11 +1,35 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Button from "./Button/Button";
 
 function StateVsRef() {
+    const input = useRef()
+    // const [value, setInput] = useState('')
+    const [show, setShow] = useState(false)
+
+    function changeInputHandler(event) {
+        setInput(event.target.value)
+    }
+
+    function handleKewDown(event) {
+        if (event.key === 'Enter') {
+            setShow(true)
+        }
+    }
+ 
+
+
     return (
         <div>
-            <h3>Input value</h3>
-            <input type="text" />
+            <h1>{input.current?.value}</h1>
+            <h3>Input value: {show && input.current.value}</h3>
+            <input 
+                ref={input}
+                type="text" 
+                className="control"
+                // value={value}
+                onKeyDown={handleKewDown}
+                // onChange={changeInputHandler}
+                />
         </div>
     )
 }
@@ -14,7 +38,7 @@ function StateVsRef() {
 export default function FeedBackSection() {
     const [form, setForm] = useState({
         name: '',
-        hasError: 'true',
+        hasError: 'false',
         reason: 'question'
     })
 
@@ -70,16 +94,13 @@ export default function FeedBackSection() {
                     {JSON.stringify(form, null, 2)}
                 </pre> */}
 
-                <Button disabled={form.hasError} isActive={!form.hasError} style={{marginDown: '1rem'}}>Отправить</Button>
-
-                <hr />
-
-                <StateVsRef/>
-
-
+                <Button disabled={form.hasError} isActive={!form.hasError} style={{marginBottom: '1rem'}}>Отправить</Button>
 
             </form>
-            
+            <hr />
+        
+            <StateVsRef/>
+
         </section>
     )
 }
